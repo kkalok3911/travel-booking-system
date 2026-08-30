@@ -1,0 +1,5 @@
+@use './_color' as *;
+
+.border-color{
+   border:1px solid $text-primary
+}

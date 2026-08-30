@@ -1,0 +1,47 @@
+@use "../../styles/color" as *;
+
+.text_style{
+    color: $text-primary;
+    font-family:sans-serif ;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.item_class{
+padding: 0px 5px 5px;
+border-radius: 5px;
+}
+
+.activItem{
+padding: 0px 5px 5px;
+border-radius: 5px;
+background:$border;
+}
+
+.card_bg{
+    // background: linear-gradient(135deg, #14507E 0%, #1B6A9E 50%, #0B3657 100%);
+    background-color: #0B2A4A;
+}
+
+.text_header{
+    p{
+    color: $accent;
+    border-color: $accent;
+    }
+}
+
+.login_btn{
+    border: 1px solid $primary;
+    color: $primary;
+
+    &:hover{
+        background: $primary;
+        color: #fff;
+    }
+}
+
+.banner_text{
+    margin-bottom: 0px;
+    color: #fff;
+}
+

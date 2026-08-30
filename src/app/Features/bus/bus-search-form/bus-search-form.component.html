@@ -1,0 +1,40 @@
+<section>
+    <div class="card card-body ms-3 me-3 border-1 p-4">
+        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="row">
+                <div class="col">
+                    <div class="form_label">
+                        <label for="From">From</label>
+                    </div>
+                 <input id="From" type="text" formControlName="from" class="form_input"/>
+                </div>
+                <div class="col">
+                    <div class="form_label">
+                        <label for="To">To</label>
+                    </div>
+                 <input id="To" type="text" formControlName="to" class="form_input" />
+                </div>
+                <div class="col">
+                    <div class="form_label">
+                        <label for="JourneryDate">Journery Date</label>
+                    </div>
+                    <input id="JourneryDate" type="date" formControlName="journeryDate" class="form_input"/>
+                </div>
+                <div class="col">
+                    <div class="form_label">
+                        <label for="TravelClass">Travel Class</label>
+                    </div>
+                    <input id="TravelClass"type="text" formControlName="travelClass" class="form_input"/>
+                </div>
+                <div class="col">
+                    <div class="form_label">
+                        <label for="Traveller">Traveller</label>
+                    </div>
+                    <input id="Traveller" type="text" formControlName="traveller" class="form_input"/>
+                </div>
+                <div class="col formButtom ">
+                    <button class="btn form_btn">Search</button>
+                </div>
+        </form>
+        
+    </div>
+</section>
