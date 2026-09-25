@@ -4,7 +4,7 @@ import { HomeComponent } from "../../Features/home/home.component";
 
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterLink, RouterOutlet, RouterLinkActive, HomeComponent],
+  imports: [RouterLink, RouterOutlet, RouterLinkActive],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss'
 })

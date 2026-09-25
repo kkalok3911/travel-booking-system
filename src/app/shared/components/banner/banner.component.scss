@@ -1,0 +1,17 @@
+@use "../../../styles/color" as *;
+
+.card_bg{
+    background-color: #0B2A4A;
+}
+
+.text_header{
+    p{
+    color: $accent;
+    border-color: $accent;
+    }
+}
+
+.banner_text{
+    margin-bottom: 0px;
+    color: #fff;
+}

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
+import { HomeComponent } from './Features/home/home.component';
 
 export const routes: Routes = [
     {
@@ -16,9 +17,21 @@ export const routes: Routes = [
 
             {
                 path:'bus',
-                loadComponent:() =>{
-                    return import('./Features/bus/bus.component').then(m=>m.BusComponent)
-                } 
+                children:[
+                    {
+                        path:'',
+                        pathMatch:'full',
+                        loadComponent:() =>{
+                            return import('./Features/bus/bus.component').then(m=>m.BusComponent)
+                        }
+                    },
+                    {
+                        path:'results',
+                        loadComponent:() =>{
+                            return import('./Features/bus/bus-list/bus-list.component').then(m=>m.BusListComponent)
+                        }
+                    }
+                ]
             },
         
             {

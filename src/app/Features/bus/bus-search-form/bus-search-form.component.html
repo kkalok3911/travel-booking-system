@@ -1,40 +1,109 @@
 <section>
-    <div class="card card-body ms-3 me-3 border-1 p-4">
-        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="row">
-                <div class="col">
-                    <div class="form_label">
-                        <label for="From">From</label>
-                    </div>
-                 <input id="From" type="text" formControlName="from" class="form_input"/>
-                </div>
-                <div class="col">
-                    <div class="form_label">
-                        <label for="To">To</label>
-                    </div>
-                 <input id="To" type="text" formControlName="to" class="form_input" />
-                </div>
-                <div class="col">
-                    <div class="form_label">
-                        <label for="JourneryDate">Journery Date</label>
-                    </div>
-                    <input id="JourneryDate" type="date" formControlName="journeryDate" class="form_input"/>
-                </div>
-                <div class="col">
-                    <div class="form_label">
-                        <label for="TravelClass">Travel Class</label>
-                    </div>
-                    <input id="TravelClass"type="text" formControlName="travelClass" class="form_input"/>
-                </div>
-                <div class="col">
-                    <div class="form_label">
-                        <label for="Traveller">Traveller</label>
-                    </div>
-                    <input id="Traveller" type="text" formControlName="traveller" class="form_input"/>
-                </div>
-                <div class="col formButtom ">
-                    <button class="btn form_btn">Search</button>
-                </div>
-        </form>
-        
-    </div>
+  <div class="card card-body ms-3 me-3 border-1 p-4">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="row">
+      <div class="col">
+        <div class="form_label">
+          <label for="From">From<span class="mendt_label">*</span></label>
+        </div>
+        <input
+          id="From"
+          type="text"
+          formControlName="from"
+          class="form_input"
+          (keydown)="allowOnlyAlphabets($event)"
+        />
+        <app-form-error
+          [control]="searchForm.controls.from"
+          reqMsg="From field is required"
+          patternMsg="Only alphabets are allowed"
+        >
+        </app-form-error>
+      </div>
+      <div class="col">
+        <div class="form_label">
+          <label for="To">To<span class="mendt_label">*</span></label>
+        </div>
+        <input
+          id="To"
+          type="text"
+          formControlName="to"
+          class="form_input"
+          (keydown)="allowOnlyAlphabets($event)"
+        />
+        <app-form-error
+          [control]="searchForm.controls.to"
+          reqMsg="To field is required"
+          patternMsg="Only alphabets are allowed"
+        >
+        </app-form-error>
+      </div>
+      <div class="col">
+        <div class="form_label">
+          <label for="JourneryDate"
+            >Journery Date<span class="mendt_label">*</span></label
+          >
+        </div>
+        <input
+          id="JourneryDate"
+          type="date"
+          formControlName="journeryDate"
+          class="form_input"
+        />
+        <app-form-error
+          [control]="searchForm.controls.journeryDate"
+          reqMsg="select journery date"
+        >
+        </app-form-error>
+      </div>
+      <div class="col">
+        <div class="form_label">
+          <label for="TravelClass"
+            >Travel Class<span class="mendt_label">*</span></label
+          >
+        </div>
+        <select
+          id="TravelClass"
+          type="text"
+          formControlName="travelClass"
+          class="form_input"
+        >
+          <option>sleeper</option>
+          <option>3rd Ac</option>
+          <option>2nd Ac</option>
+          <option>1st Ac</option></select
+        >
+        <app-form-error
+          [control]="searchForm.controls.travelClass"
+          reqMsg="select travel class "
+        >
+        </app-form-error>
+      </div>
+      <div class="col">
+        <div class="form_label">
+          <label for="Traveller"
+            >Traveller <span class="mendt_label">*</span></label
+          >
+        </div>
+        <input
+          id="Traveller"
+          type="text"
+          formControlName="traveller"
+          class="form_input"
+          (keydown)="allowOnlyNumbers($event)"
+        />
+        <app-form-error
+          [control]="searchForm.controls.traveller"
+          reqMsg="No of travellers are required"
+          reqMinMsg="Min 1 traveller is required"
+          reqMaxMsg="Max 10 traveller is required"
+          patternMsg="Only numbers are allowed"
+        ></app-form-error>
+      </div>
+      <div class="col formButtom">
+        <button class="btn form_btn">Search</button>
+      </div>
+    </form>
+  </div>
 </section>
+
+

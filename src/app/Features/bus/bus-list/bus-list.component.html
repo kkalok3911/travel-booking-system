@@ -1,0 +1,138 @@
+<section class="summary_bar">
+  <div class="route_summary">
+    <div class="route_icon"><i class="bi bi-bus-front"></i></div>
+    <div>
+      <div class="route_title">{{ criteria().from }} &rarr; {{ criteria().to }}</div>
+      <div class="route_subtitle">
+        {{ criteria().journeryDate | date : 'd MMM y' }} &middot;
+        {{ criteria().traveller }} {{ +criteria().traveller === 1 ? 'Traveller' : 'Travellers' }} &middot;
+        {{ criteria().travelClass || 'Any Type' }}
+      </div>
+    </div>
+    <button class="btn modify_btn" (click)="modifySearch()">Modify Search</button>
+  </div>
+
+  <div class="sort_bar">
+    <span class="sort_label">Sort</span>
+    <button
+      class="btn sort_pill"
+      [class.active]="sortBy() === 'recommended'"
+      (click)="setSort('recommended')"
+    >
+      Recommended
+    </button>
+    <button class="btn sort_pill" [class.active]="sortBy() === 'price'" (click)="setSort('price')">
+      Price
+    </button>
+    <button
+      class="btn sort_pill"
+      [class.active]="sortBy() === 'departure'"
+      (click)="setSort('departure')"
+    >
+      Departure
+    </button>
+    <button class="btn sort_pill" [class.active]="sortBy() === 'rating'" (click)="setSort('rating')">
+      Rating
+    </button>
+  </div>
+</section>
+
+<section class="results_layout">
+  <aside class="filters_panel">
+    <div class="filters_header">
+      <span>Filters</span>
+      <button class="clear_btn" (click)="clearFilters()">Clear All</button>
+    </div>
+
+    <div class="filter_group">
+      <div class="filter_title">Max Price</div>
+      <input
+        type="range"
+        min="500"
+        max="9000"
+        step="50"
+        [value]="maxPrice()"
+        (input)="maxPrice.set(+$any($event.target).value)"
+        class="price_slider"
+      />
+      <div class="filter_hint">Up to &#8377;{{ maxPrice() }}</div>
+    </div>
+
+    <div class="filter_group">
+      <div class="filter_title">Bus Type</div>
+      @for (type of busTypes; track type) {
+        <label class="filter_checkbox">
+          <input
+            type="checkbox"
+            [checked]="selectedBusTypes().has(type)"
+            (change)="toggleBusType(type)"
+          />
+          <span>{{ type }}</span>
+          <span class="filter_count">{{ busTypeCounts()[type] }}</span>
+        </label>
+      }
+    </div>
+
+    <div class="filter_group">
+      <div class="filter_title">Departure</div>
+      @for (slot of departureSlots; track slot.key) {
+        <label class="filter_checkbox">
+          <input
+            type="checkbox"
+            [checked]="selectedDepartureSlots().has(slot.key)"
+            (change)="toggleDepartureSlot(slot.key)"
+          />
+          <span>{{ slot.label }}</span>
+          <span class="filter_count">{{ departureSlotCounts()[slot.key] }}</span>
+        </label>
+      }
+    </div>
+  </aside>
+
+  <div class="results_main">
+    @if (loading()) {
+      <p class="status_text">Searching buses...</p>
+    } @else {
+      <div class="results_header">
+        <span class="results_count"
+          >{{ filteredBuses().length }} {{ filteredBuses().length === 1 ? 'bus' : 'buses' }} found</span
+        >
+        <span class="results_hint">Fares include taxes unless marked otherwise</span>
+      </div>
+
+      @if (filteredBuses().length === 0) {
+        <p class="status_text">No buses match your filters.</p>
+      } @else {
+        @for (bus of filteredBuses(); track bus.id) {
+          <div class="bus_card">
+            <div class="bus_operator">
+              <div class="operator_name">{{ bus.operator }}</div>
+              <div class="travel_class">{{ bus.busTypeLabel }}</div>
+              <div class="bus_rating"><i class="bi bi-star-fill"></i> {{ bus.rating }}</div>
+            </div>
+            <div class="bus_timing">
+              <div class="time_block">
+                <div class="time_text">{{ bus.departureTime }}</div>
+                <div class="city_text">{{ bus.from }}</div>
+              </div>
+              <div class="duration_block">
+                <div class="duration_text">{{ formatDuration(bus.durationMinutes) }}</div>
+                <div class="duration_line"></div>
+                <div class="direct_text">Direct</div>
+              </div>
+              <div class="time_block">
+                <div class="time_text">{{ bus.arrivalTime }}</div>
+                <div class="city_text">{{ bus.to }}</div>
+              </div>
+            </div>
+            <div class="bus_action">
+              <div class="bus_price">&#8377;{{ bus.price }}</div>
+              <div class="bus_seats">{{ bus.availableSeats }} seats left</div>
+              <button class="btn view_seats_btn">View Seats</button>
+            </div>
+          </div>
+        }
+      }
+    }
+  </div>
+</section>
